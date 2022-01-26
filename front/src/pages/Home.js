@@ -24,6 +24,8 @@ function Home() {
     mediaBlobUrl,
   } = useReactMediaRecorder({ audio: true });
 
+  console.log(status);
+
   return (
     <Layout>
       <Header style={{ height: "7vh", padding: '10px' }}>
@@ -40,15 +42,35 @@ function Home() {
           </Menu>
         </Sider>
         <Content style={{ padding: 25 }}>
-          <audio controls src={mediaBlobUrl}>
-          </audio>
-          <button onClick={stopRecording}>Stop Recording</button>
+
           <Card title="New Session">
-            <Button type="primary" style={{ marginRight: "10px" }} onClick={() => startRecording()}>Record</Button>
-            or...
-            <Upload>
-              <Button style={{ marginLeft: "10px" }} icon={<UploadOutlined />}>Click to Upload</Button>
-            </Upload>
+            {
+              status === "stopped"
+              ?
+                <>
+                  <audio controls src={mediaBlobUrl}></audio>
+                  <br/>
+                </>
+              : null
+            }
+            {
+              status === "recording"
+              ? (
+                <>
+                  <Title level={4}>Recording...</Title>
+                  <Button type="danger" style={{ marginRight: "10px" }} onClick={stopRecording}>Stop Recording</Button>
+                </>
+              )
+              : (
+                <>
+                  <Button type="primary" style={{ marginRight: "10px" }} onClick={startRecording}>Record</Button>
+                  or...
+                  <Upload>
+                    <Button style={{ marginLeft: "10px" }} icon={<UploadOutlined />}>Click to Upload</Button>
+                  </Upload>
+                </>
+              )
+            }
           </Card>
       </Content>
       </Layout>
