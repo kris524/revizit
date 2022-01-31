@@ -1,6 +1,10 @@
 ./front/node_modules
 ./front/build
 
+node_modules
+constants.js
+*.zip
+
 .DS_Store
 .env.local
 .env.development.local
